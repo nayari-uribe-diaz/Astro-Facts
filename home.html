@@ -1,1 +1,19 @@
-<DOCTYPE HTML>
+{% extends "layout.html" %}
+
+{% set active_page = "home" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h1>thing</h1>
+<p> The data used in this web app is from the CORGIS Dataset Project and can be found here. 
+The data in this file consists of publicly available information about all the astronauts who 
+participated in space missions before January 15, 2020. It contains profile information detailing
+each astronaut’s background (birth year, gender, nationality, etc.), as well as mission information 
+detailing the specifics of the astronaut’s mission (mission duration, mission name, vehicles used, etc.). 
+It also documents the astronaut’s EVA time. EVA stands for Extravehicular Activity, which is an activity 
+that an astronaut does outside the vehicle, on the vehicle (i.e. fixing a solar panel on a satellite). (source)</p>
+
+
+{% endblock %}
