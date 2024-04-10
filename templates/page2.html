@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% set active_page = "page2" %}
+
+{% block title %}Page 2{% endblock %}
+
+{% block content %}
+    <!--page content-->
+	<h1 class="mt-4 ms-4">Year</h1>
+<div class="ms-5">
+	<form action="/p2" >
+	  <select name="year">
+		{{ options2 }}
+	  </select>
+	  <br><br>
+	  <input type="submit">
+	</form>
+	<div id='NationNumbers' class="mt-4">
+		<p>{{ NationNumbers }}</p>
+	</div>
+</div>
+{% endblock %}

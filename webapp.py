@@ -12,19 +12,21 @@ app = Flask(__name__)
 @app.route("/")
 def render_main():
     nationalities = get_country_options()
-    return render_template('home.html', options=nationalities)
-    
+    years = get_year_options()
+    return render_template('home.html', options=nationalities, options2=years)
     
     
 @app.route("/p1")
 def render_page1():
     nationalities = get_country_options()
-    nationality = request.args.get('nationality')
-    astronaut = request.args.get('astronaut')
-    nat = get_longest_eva(astronaut)
-    EVA_duration = "The astronaut: " + nat + "has the longest EVA duration in" + nat
-    return render_template('page1.html', options=nationalities, EVA=EVA_duration)
- 
+    if "nationality" in request.args: 
+        nationality = request.args.get('nationality')
+        result = get_longest_eva(nationality)
+        result2 = get_longest_mission(nationality)
+        return render_template('page1.html', options=nationalities, EVA=result, Mission=result2)
+    return render_template('page1.html' , options=nationalities)
+    
+    
 def get_country_options():
     with open('astronauts.json') as astro_data:
         nat = json.load(astro_data)
@@ -37,29 +39,80 @@ def get_country_options():
         options += Markup("<option value=\"" + t + "\">" + t + "</option>")
     return options
 
-def get_longest_eva(astronaut):
+
+def get_longest_eva(nationality):
     with open('astronauts.json') as astro_data:
-        nation = json.load(astro_data)
+        nat = json.load(astro_data)
     highest_EVA  = 0
-    nat = ""
-    for n in nation:
-        if n["Profile"]["Nationality"] == astronaut and n["Profile"]["Name"] == astronaut:
-            if n["Lifetime Statistics"]["EVA duration"] > highest_EVA:
-                highest_EVA = n["Lifetime Statistics"]["EVA duration"]
-                nat = n["Profile"]["Name"]
-    return nat
-           
+    name = ""
+    for n in nat:
+        if n["Profile"]["Nationality"]== nationality:
+            if n["Profile"]["Lifetime Statistics"]["EVA duration"] > highest_EVA:
+                highest_EVA = n["Profile"]["Lifetime Statistics"]["EVA duration"]
+                name = n["Profile"]["Name"]
+    return "The astronaut: " + name + " has the longest EVA duration in " + nationality + " with EVA being " + str(highest_EVA) + " hours."
+
+
+def get_longest_mission(nationality):
+    with open('astronauts.json') as astro_data:
+        nat = json.load(astro_data)
+    highest_mission  = 0
+    name = ""
+    for n in nat:
+        if n["Profile"]["Nationality"]== nationality:
+            if n["Profile"]["Lifetime Statistics"]["Mission duration"] > highest_mission:
+                highest_mission = n["Profile"]["Lifetime Statistics"]["Mission duration"]
+                name = n["Profile"]["Name"]
+    return "The astronaut: " + name + " has the longest mission duration in " + nationality + " with mission duration being " + str(highest_mission) + " hours."
+
 
 @app.route("/p2")
 def render_page2():
- return render_template('page2.html')
+    years=get_year_options()
+    if "year" in request.args: 
+        year = request.args.get('year')
+        year_result = get_most_astronauts(year)
+        return render_template('page2.html', options2=years, NationNumbers=year_result)
+    return render_template('page2.html' , options2=years)
  
+def get_year_options():
+    with open('astronauts.json') as astro_data:
+        yr = json.load(astro_data)
+    years = []
+    for y in yr:
+        if y["Profile"]["Selection"]["Year"] not in years:
+            years.append(y["Profile"]["Selection"]["Year"])
+    options2=""
+    for r in years:
+        options2 += Markup("<option value=\"" + str(r) + "\">" + str(r) + "</option>")
+    return options2
+ 
+ 
+def get_most_astronauts(year):
+    with open('astronauts.json') as astro_data:
+        yr = json.load(astro_data)
+    most_astronauts= 0
+    country = ""
+    for y in yr:
+        if y["Profile"]["Selection"]["Year"]== year:
+            if y["Profile"]["Astronaut Numbers"]["Nationwide"] > most_astronauts:
+                most_astronauts = y["Profile"]["Astronaut Numbers"]["Nationwide"]
+                country = y["Profile"]["Nationality"]
+    return country + " had the most astronauts in " + year + " with " + str(most_astronauts) + " astronauts nationwide."
  
  
 @app.route("/p3")
 def render_page3():
     
     return render_template('page3.html')
+    
+def is_localhost():
+    """ Determines if app is running on localhost or not
+    Adapted from: https://stackoverflow.com/questions/17077863/how-to-see-if-a-flask-app-is-being-run-on-localhost
+    """
+    root_url = request.url_root
+    developer_url = 'http://127.0.0.1:5000/'
+    return root_url == developer_url
     
     
 
