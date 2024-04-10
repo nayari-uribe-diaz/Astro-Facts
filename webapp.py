@@ -70,9 +70,11 @@ def get_longest_mission(nationality):
 def render_page2():
     years=get_year_options()
     if "year" in request.args: 
-        year = request.args.get('year')
+        year = int(request.args.get('year'))
         year_result = get_most_astronauts(year)
-        return render_template('page2.html', options2=years, NationNumbers=year_result)
+        over_year = get_overall_astronauts(year)
+        space_missions = get_year_missions(year)
+        return render_template('page2.html', options2=years, NationNumbers=year_result , OverNumbers=over_year, SpaceMissions=space_missions)
     return render_template('page2.html' , options2=years)
  
 def get_year_options():
@@ -98,8 +100,27 @@ def get_most_astronauts(year):
             if y["Profile"]["Astronaut Numbers"]["Nationwide"] > most_astronauts:
                 most_astronauts = y["Profile"]["Astronaut Numbers"]["Nationwide"]
                 country = y["Profile"]["Nationality"]
-    return country + " had the most astronauts in " + year + " with " + str(most_astronauts) + " astronauts nationwide."
+    return country + " had the most astronauts in " + str(year) + " with " + str(most_astronauts) + " astronauts nationwide."
  
+ 
+def get_overall_astronauts(year):
+    with open('astronauts.json') as astro_data:
+        yr = json.load(astro_data)
+    all_astronauts = 0
+    for y in yr:
+        if y["Profile"]["Selection"]["Year"]== year:
+            if y["Profile"]["Astronaut Numbers"]["Overall"] > all_astronauts:
+                all_astronauts = y["Profile"]["Astronaut Numbers"]["Overall"]
+    return "In " + str(year) + ", there were " + str(all_astronauts) + " astronauts overall."
+    
+def get_year_missions(year):
+    with open('astronauts.json') as astro_data:
+        yr = json.load(astro_data)
+    year_missions = ""
+    for y in yr:
+        if y["Profile"]["Selection"]["Year"] == year:
+            year_missions = y["Mission"]["Name"]
+    return "List of missions in " + str(year) + ": " + year_missions
  
 @app.route("/p3")
 def render_page3():
