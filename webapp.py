@@ -116,16 +116,57 @@ def get_overall_astronauts(year):
 def get_year_missions(year):
     with open('astronauts.json') as astro_data:
         yr = json.load(astro_data)
-    year_missions = ""
+    year_missions = Markup("<ul>")
     for y in yr:
         if y["Profile"]["Selection"]["Year"] == year:
-            year_missions = y["Mission"]["Name"]
+            year_missions = year_missions + Markup("<li>" + y["Mission"]["Name"] + "</li>")
+    year_missions = year_missions + Markup('</ul>')
     return "List of missions in " + str(year) + ": " + year_missions
  
 @app.route("/p3")
 def render_page3():
+    missions=get_mission_options()
+    if 'mission' in request.args: 
+        mission = request.args.get('mission')
+        mission_names = get_mission_names(mission)
+        mission_year = get_mission_year(mission)
+        return render_template('page3.html', options3=missions, MissionNames=mission_names, MissionYear=mission_year)
+    return render_template('page3.html' , options3=missions)
     
-    return render_template('page3.html')
+    
+def get_mission_options():
+    with open('astronauts.json') as astro_data:
+        mis = json.load(astro_data)
+    missions = []
+    for m in mis:
+        if m["Mission"]["Name"] not in missions:
+            missions.append(m["Mission"]["Name"])
+    options3=""
+    for s in missions:
+        options3 += Markup("<option value=\"" + str(s) + "\">" + str(s) + "</option>")
+    return options3
+    
+    
+    
+def get_mission_names(mission):
+    with open('astronauts.json') as astro_data:
+        mis = json.load(astro_data)
+    names = Markup("<ul>")
+    for m in mis:
+        if m["Mission"]["Name"] == mission:
+            names = names + Markup("<li>" + m["Profile"]["Name"] + "</li>")
+    names = names + Markup("</ul>")
+    return "List of the people who were on mission " + mission + ": " + names
+    
+    
+def get_mission_year(mission):
+    with open('astronauts.json') as astro_data:
+        mis = json.load(astro_data)
+    year = ""
+    for m in mis:
+        if m["Mission"]["Name"] == mission:
+            year = int(m["Mission"]["Year"])
+    return "Mission " + mission + " took place in " + str(year)
     
 def is_localhost():
     """ Determines if app is running on localhost or not

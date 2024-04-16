@@ -6,20 +6,23 @@
 
 {% block content %}
     <!--page content-->
-	<h1 class="mt-4 ms-4">Country</h1>
-<div class="ms-5">
-	<form action="/p1" >
-	  <select name="nationality">
-		{{ options }}
-	  </select>
-	  <br><br>
-	  <input type="submit">
-	</form>
-	<div id='EVA' class="mt-4">
-		<p>{{ EVA }}</p>
-	</div>
-	<div id='Mission' class="mt-4">
-		<p>{{ Mission }}</p>
+<div class="everything">
+		<h1 class="mt-4 ms-4">Country</h1>
+		<h4 class="mt-2 ms-4 mb-4">Get a country's longest EVA and Longest mission!</h2>
+	<div class="ms-5">
+		<form action="/p1" >
+		  <select name="nationality">
+			{{ options }}
+		  </select>
+		  <br><br>
+		  <input type="submit">
+		</form>
+		<div id='EVA' class="mt-4">
+			<p>{{ EVA }}</p>
+		</div>
+		<div id='Mission' class="mt-4">
+			<p>{{ Mission }}</p>
+		</div>
 	</div>
 </div>
 {% endblock %}

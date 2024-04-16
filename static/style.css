@@ -1,4 +1,31 @@
 .background {
-	background-color: #d8d3eb;
+	background-image: url("Space2.jpg");
+	background-repeat: no-repeat;
+	 background-size: cover;
 }
 
+h1{
+	color: white;
+}
+h4{
+	color: white;
+}
+
+p{
+	color: white;
+}
+
+#SpaceMissions {
+	color: white;
+}
+
+#MissionNames {
+	color: white;
+}
+
+.everything{
+	text-align: center;
+	background-color: #15151D;
+	display: block;
+	
+}
