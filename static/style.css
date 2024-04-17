@@ -1,7 +1,7 @@
 .background {
 	background-image: url("Space2.jpg");
 	background-repeat: no-repeat;
-	 background-size: cover;
+	background-size: cover;
 }
 
 h1{
@@ -26,6 +26,8 @@ p{
 .everything{
 	text-align: center;
 	background-color: #15151D;
-	display: block;
-	
+	width: 700px;
+	display:block; 
+	border-radius: 25px;
+	margin: auto;
 }
