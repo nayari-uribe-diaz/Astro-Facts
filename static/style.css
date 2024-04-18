@@ -1,6 +1,6 @@
 .background {
 	background-image: url("Space2.jpg");
-	background-repeat: no-repeat;
+	background-repeat: repeat;
 	background-size: cover;
 }
 
@@ -39,4 +39,8 @@ ul {
 	display:block; 
 	border-radius: 25px;
 	margin: auto;
+}
+
+.formcolor{
+	color: red;
 }
