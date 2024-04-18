@@ -6,6 +6,7 @@
 
 h1{
 	color: white;
+	padding-top: 2px;
 }
 h4{
 	color: white;
@@ -15,18 +16,26 @@ p{
 	color: white;
 }
 
+ul {
+  list-style-type: none;
+}
+
+
 #SpaceMissions {
 	color: white;
+	padding-bottom: 2px;
+
 }
 
 #MissionNames {
 	color: white;
+	padding-bottom: 2px;
 }
 
 .everything{
 	text-align: center;
 	background-color: #15151D;
-	width: 700px;
+	width: 70%;
 	display:block; 
 	border-radius: 25px;
 	margin: auto;
