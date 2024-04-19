@@ -7,9 +7,8 @@
 {% block content %}
     <!--page content-->
 <div class="everything">
-		<h1 class="mt-4 ms-4">Year</h1>
+		<h1 class="mt-5 ms-4">Year</h1>
 		<h4 class="mt-2 ms-4 mb-4">Get the missions, overall and national astronaut numbers from a certain year!</h4>
-	<div class="ms-5">
 		<form action="/p2" >
 		  <select name="year">
 			{{ options2 }}
@@ -26,6 +25,5 @@
 		<div id='SpaceMissions' class="mt-4">
 			<p>{{ SpaceMissions }}</p>
 		</div>
-	</div>
 </div>
 {% endblock %}
