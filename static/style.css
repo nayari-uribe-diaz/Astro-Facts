@@ -39,7 +39,10 @@ ul {
 	display:block; 
 	border-radius: 25px;
 	margin: auto;
+	margin-bottom: 5px;
 	padding-bottom: 2px;
+	padding-left: 2px;
+	padding-right: 2px
 }
 
 
