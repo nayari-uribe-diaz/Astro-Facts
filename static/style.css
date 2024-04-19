@@ -24,11 +24,13 @@ ul {
 #SpaceMissions {
 	color: white;
 	padding-bottom: 2px;
-
+	text-align: center;
 }
 
 #MissionNames {
 	color: white;
+	padding-bottom: 2px;
+	text-align: center;
 }
 
 .everything{
